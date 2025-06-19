@@ -1,87 +1,23 @@
-# Welcome to React Router!
+# React Router v7 + Emotion v12 + Vite
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+## Getting started
 
 ```bash
-npm install
+npm install && npm run dev
 ```
 
-### Development
+Open the browser devtools, you will see the hydration error and the critical css is not applied.
 
-Start the development server with HMR:
+## Fix the hydration error
 
-```bash
-npm run dev
-```
+To make the SSR works with critical css, update the path in `node_modules`:
 
-Your application will be available at `http://localhost:5173`.
+- Open `node_modules/@emotion/react/dist/emotion-react.cjs.js`
+- Replace the production file `emotion-element-*.cjs.js` with the development file `emotion-element-*.development.cjs.js`
 
-## Building for Production
+  ```diff
+  - var emotionElement = require('./emotion-element-a1829a1e.cjs.js');
+  + var emotionElement = require('./emotion-element-e8f4cc37.development.cjs.js');
+  ```
 
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+- Rerun the dev server and check the browser devtools, the hydration error is fixed and the critical css is applied.
