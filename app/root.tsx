@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 import { CacheProvider as EmotionCacheProvider } from "@emotion/react";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import createCache from "@emotion/cache";
 
 import type { Route } from "./+types/root";
@@ -27,7 +28,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,6 +37,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
+        <InitColorSchemeScript
+          attribute="data-mui-color-scheme"
+          defaultMode="dark"
+        />
         {children}
         <ScrollRestoration />
         <Scripts />

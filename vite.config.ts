@@ -5,4 +5,14 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  ssr: {
+    noExternal: [
+      "@emotion/react",
+      "@emotion/styled",
+      "@mui/material",
+      "@mui/icons-material",
+      "@mui/system",
+      "@mui/styled-engine",
+    ],
+  },
 });
